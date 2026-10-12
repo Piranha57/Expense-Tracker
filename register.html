@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#536fe8" />
+    <title>Create account | ExpenseTracker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="auth.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body class="auth-page">
+    <main class="auth-layout">
+      <a class="auth-brand" href="index.html" aria-label="ExpenseTracker home">
+        <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
+        <span>Expense<span class="brand-light">Tracker</span></span>
+      </a>
+      <section class="auth-card" aria-labelledby="auth-title">
+        <p class="auth-eyebrow">A CLEARER VIEW OF YOUR MONEY</p>
+        <h1 id="auth-title">Create your account</h1>
+        <p class="auth-description">Set up an account to get started with ExpenseTracker.</p>
+        <form class="auth-form" id="register-form">
+          <label class="auth-field">
+            <span>Email address</span>
+            <input name="email" type="email" autocomplete="email" placeholder="you@example.com" required />
+          </label>
+          <label class="auth-field">
+            <span>Password</span>
+            <input name="password" type="password" autocomplete="new-password" minlength="8" placeholder="At least 8 characters" required />
+          </label>
+          <label class="auth-field">
+            <span>Confirm password</span>
+            <input name="confirmPassword" type="password" autocomplete="new-password" minlength="8" placeholder="Enter your password again" required />
+          </label>
+          <p class="auth-message" id="auth-message" role="status" aria-live="polite"></p>
+          <button class="auth-submit" type="submit">Create account <span aria-hidden="true">→</span></button>
+        </form>
+        <p class="auth-switch">Already have an account? <a href="login.html">Log in</a></p>
+      </section>
+      <p class="auth-note">This demo keeps account details in this browser only. Don’t use a sensitive or reused password.</p>
+    </main>
+  </body>
+</html>

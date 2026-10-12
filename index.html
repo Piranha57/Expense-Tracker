@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#5d79ee" />
+    <title>ExpenseTracker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="ExpenseTracker home">
+        <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
+        <span>Expense<span class="brand-light">Tracker</span></span>
+      </a>
+      <nav class="top-actions" aria-label="Main actions">
+        <a class="button button-account" href="login.html">Log in</a>
+        <button class="icon-button search-shortcut" id="focus-search" type="button" aria-label="Search expenses" title="Search expenses">⌕</button>
+        <button class="button button-add" id="add-expense" type="button"><span aria-hidden="true">＋</span> Add expense</button>
+        <div class="avatar" aria-label="Your account">A</div>
+      </nav>
+    </header>
+
+    <main class="dashboard" id="top">
+      <section class="page-heading" aria-label="Dashboard overview">
+        <div>
+          <p class="eyebrow">YOUR MONEY, IN FOCUS</p>
+          <h1>Good spending starts here.</h1>
+          <p class="heading-date" id="today-label"></p>
+        </div>
+        <div class="period-label"><span class="period-dot"></span><span id="month-label"></span></div>
+      </section>
+
+      <section class="summary-grid" aria-label="Spending summary">
+        <article class="summary-card summary-total">
+          <div class="card-topline"><span>Total expenses</span><span class="metric-icon" aria-hidden="true">↗</span></div>
+          <strong class="metric-value" id="total-amount">$0.00</strong>
+          <div class="metric-foot"><span class="trend-mark">●</span><span id="total-caption">Across all your expenses</span></div>
+          <span class="card-accent" aria-hidden="true"></span>
+        </article>
+        <article class="summary-card summary-category">
+          <div class="card-topline"><span>Top category</span><span class="metric-icon" aria-hidden="true">◉</span></div>
+          <div class="category-metric"><span class="category-dot" id="top-category-dot"></span><strong class="metric-value" id="top-category">No expenses yet</strong></div>
+          <strong class="metric-subvalue" id="top-category-amount">$0.00</strong>
+          <div class="metric-foot"><span id="top-category-share">Add an expense to get started</span></div>
+          <span class="card-accent" aria-hidden="true"></span>
+        </article>
+        <article class="summary-card summary-month">
+          <div class="card-topline"><span>This month</span><span class="metric-icon" aria-hidden="true">◷</span></div>
+          <strong class="metric-value" id="month-amount">$0.00</strong>
+          <div class="metric-foot"><span id="month-caption">0 transactions</span></div>
+          <span class="card-accent" aria-hidden="true"></span>
+        </article>
+      </section>
+
+      <section class="panel distribution-panel" aria-labelledby="distribution-title">
+        <div class="section-heading">
+          <div><p class="eyebrow">THE BIG PICTURE</p><h2 id="distribution-title">Expense distribution</h2></div>
+          <span class="section-meta" id="category-count">0 categories</span>
+        </div>
+        <div class="distribution-grid" id="distribution-list"></div>
+      </section>
+
+      <section class="panel recent-panel" aria-labelledby="recent-title">
+        <div class="recent-heading">
+          <div class="section-heading recent-title-wrap">
+            <div><p class="eyebrow">YOUR ACTIVITY</p><h2 id="recent-title">Recent expenses</h2></div>
+          </div>
+          <div class="list-controls">
+            <label class="search-field"><span aria-hidden="true">⌕</span><span class="visually-hidden">Search expenses</span><input id="expense-search" type="search" placeholder="Search expenses..." autocomplete="off" /></label>
+            <label class="select-wrap"><span class="visually-hidden">Filter by category</span><select id="category-filter"><option value="all">All categories</option></select><span aria-hidden="true">⌄</span></label>
+          </div>
+        </div>
+        <div class="filter-tabs" role="group" aria-label="Filter by date">
+          <button class="filter-tab is-active" type="button" data-period="all" aria-pressed="true">All time</button>
+          <button class="filter-tab" type="button" data-period="today" aria-pressed="false">Today</button>
+          <button class="filter-tab" type="button" data-period="week" aria-pressed="false">This week</button>
+          <button class="filter-tab" type="button" data-period="month" aria-pressed="false">This month</button>
+        </div>
+        <div class="expense-list" id="expense-list" aria-live="polite"></div>
+        <p class="list-count" id="list-count"></p>
+      </section>
+
+      <footer class="page-footer"><span class="footer-mark">E</span><span>Small choices add up.</span><span class="footer-separator">·</span><span>Every expense, in one place.</span></footer>
+    </main>
+
+    <dialog class="expense-dialog" id="expense-dialog" aria-labelledby="dialog-title">
+      <form id="expense-form">
+        <div class="dialog-heading">
+          <div><p class="eyebrow">KEEP YOUR NUMBERS CLOSE</p><h2 id="dialog-title">Add expense</h2></div>
+          <button class="icon-button close-dialog" type="button" aria-label="Close dialog" data-close>×</button>
+        </div>
+        <label class="form-field amount-field"><span>Amount</span><div class="amount-input"><span>$</span><input id="expense-amount" name="amount" type="number" min="0.01" step="0.01" placeholder="0.00" required /></div></label>
+        <label class="form-field"><span>Description</span><input id="expense-description" name="description" type="text" maxlength="70" placeholder="What did you spend on?" required /></label>
+        <div class="form-row">
+          <label class="form-field"><span>Category</span><select id="expense-category" name="category" required></select></label>
+          <label class="form-field"><span>Date</span><input id="expense-date" name="date" type="date" required /></label>
+        </div>
+        <div class="dialog-actions"><button class="button button-cancel" type="button" data-close>Cancel</button><button class="button button-save" type="submit">Save expense <span aria-hidden="true">↗</span></button></div>
+      </form>
+    </dialog>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>
